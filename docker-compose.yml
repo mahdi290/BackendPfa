@@ -1,38 +1,43 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysqldb
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: "ihm"
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-
-  backend:
-    container_name: spring
-    depends_on:
-      - mysql
-    build: ./
-    image: back
-    ports:
-      - 8089:8089
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ihm
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
-      SPRING_JPA_SHOW_SQL: "true"
-      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL5Dialect
-
   frontend:
+    image: fronts
     container_name: angular
-    build: ./
-    image: front
     ports:
       - "4200:80"
-volumes:
-  db_data:
+
+  backend:
+    image: b2
+    container_name: backend
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysql:3306/employeemanager?allowPublicKeyRetrieval=true
+
+      #      MYSQL_HOST: mysqlcontainer
+#      MYSQL_PORT: 3306
+#      MYSQL_DB_NAME: employeemanager
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD:
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    container_name: mysqlcontainer
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: employeemanager
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD:
+
+#networks:
+#  default:
+#    name: networkmysql
+#    external: true
+
+
+
