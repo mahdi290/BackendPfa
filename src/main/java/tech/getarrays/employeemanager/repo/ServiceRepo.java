@@ -3,10 +3,9 @@ package tech.getarrays.employeemanager.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import tech.getarrays.employeemanager.model.ServiceModel;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface ServiceRepo extends JpaRepository<ServiceModel, Long> {
-    void deleteServiceById(Long id);
+    List<ServiceModel> findByUserId(Long userId);
 
-    Optional<ServiceModel> findServiceById(Long id);
 }
