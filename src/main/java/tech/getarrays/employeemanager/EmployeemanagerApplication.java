@@ -18,7 +18,7 @@ public class EmployeemanagerApplication {
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://18.210.19.227:3000")); // Allow requests from all origins
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://192.168.49.2:30177")); // Allow requests from all origins
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));
